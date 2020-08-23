@@ -47,9 +47,6 @@ def parser_film_info_with_xpath(film_url, header):
     return film_name[0], plan_date[0], rating[0], introduction[0]
 
 
-def get_douban_top250_with():
-
-
 def main():
     user_agent = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0'
     header = {'user-agent': user_agent}
@@ -59,7 +56,7 @@ def main():
         film_urls = get_url_name(page_url, header)
         top_250_film_urls.extend(film_urls)
     film_names, plan_dates, ratings, intros = [], [], [], []
-    for film_url in tqdm(top_250_film_urls):
+    for film_url in top_250_film_urls:
         film_name, plan_date, rating, intro = parser_film_info(film_url, header)
         film_names.append(film_name)
         plan_dates.append(plan_date)

@@ -1,6 +1,5 @@
 """homework 1
-安装并使用 requests、bs4 库，爬取猫眼电影的前 10 个电影名称、电影类型和上映时间，并以 UTF-8 字符集保存到 csv 格式的文件中。
-我选取的是猫眼电影热映口碑榜（https://maoyan.com/board/7）的前10个电影信息，包括电影名称、电影类型、电影上映时间。
+使用requests库和bs4爬取猫眼电影排行前10的电影名称、电影类型和上映时间，并以 UTF-8 字符集保存到 csv 格式的文件中。
 """
 import time
 import requests

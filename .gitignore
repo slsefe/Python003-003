@@ -1,5 +1,8 @@
+.vscode
 .vscode/
 py36/
 .ipynb_checkpoints/
 *.ipynb
+*.pyc
 __pycache__/
+
