@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # Define here the models for your scraped items
 #
 # See documentation in:
@@ -6,7 +8,9 @@
 import scrapy
 
 
-class SpidersItem(scrapy.Item):
+class MoviesItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    film_name = scrapy.Field()
+    film_types = scrapy.Field()
+    release_date = scrapy.Field()

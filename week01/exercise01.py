@@ -1,14 +1,13 @@
 """
-需求：爬取豆瓣top250电影的电影名称、上映日期和评分。
+使用requests和BeautifulSoup爬取豆瓣top250电影的电影名称、上映日期和评分。
 """
 import requests
 from bs4 import BeautifulSoup
 import lxml.etree
 import pandas as pd
-from tqdm import tqdm
 
 
-def get_url_name(url, header):
+def get_url_name_with_bs4(url, header):
     response = requests.get(url, headers=header)
     bs_info = BeautifulSoup(response.text, 'html.parser')
     film_urls = []
@@ -18,7 +17,17 @@ def get_url_name(url, header):
     return film_urls
 
 
-def parser_film_info(film_url, header):
+def get_url_name_with_xpath(url, header):
+    response = requests.get(url, headers=header)
+    bs_info = BeautifulSoup(response.text, 'html.parser')
+    film_urls = []
+    for tags in bs_info.find_all('div', attrs={'class': 'hd'}):
+        for a_tag in tags.find_all('a',):
+            film_urls.append(a_tag.get('href'))
+    return film_urls
+
+
+def parser_film_info_with_bs4(film_url, header):
     response = requests.get(film_url, headers=header)
     selector = lxml.etree.HTML(response.text)
     film_name = selector.xpath('//*[@id="content"]/h1/span[1]/text()')
@@ -26,6 +35,19 @@ def parser_film_info(film_url, header):
     rating = selector.xpath('//*[@id="interest_sectl"]/div[1]/div[2]/strong/text()')
     introduction = selector.xpath('//*[@id="link-report"]/span[1]/span/text()')
     return film_name[0], plan_date[0], rating[0], introduction[0]
+
+
+def parser_film_info_with_xpath(film_url, header):
+    response = requests.get(film_url, headers=header)
+    selector = lxml.etree.HTML(response.text)
+    film_name = selector.xpath('//*[@id="content"]/h1/span[1]/text()')
+    plan_date = selector.xpath('//*[@id="info"]/span[10]/text()')
+    rating = selector.xpath('//*[@id="interest_sectl"]/div[1]/div[2]/strong/text()')
+    introduction = selector.xpath('//*[@id="link-report"]/span[1]/span/text()')
+    return film_name[0], plan_date[0], rating[0], introduction[0]
+
+
+def get_douban_top250_with():
 
 
 def main():
